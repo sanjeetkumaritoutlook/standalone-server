@@ -24,12 +24,27 @@ jobs:
 
       - name: Install http-server
         run: npm install -g http-server
+        
+      - name: Build & Prepare Files
+        run: mkdir -p ./output && cp -r * ./output  # Copy all files to output folder
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./output  # The folder to deploy  
 
       - name: Start HTTP Server (Optional for testing)
+        if: false
         run: http-server -p 8080 &
+        
+  deploy-to-gh-pages:
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
 
+    steps:    
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .  # Change if your files are inside "dist" or "public"
+      
