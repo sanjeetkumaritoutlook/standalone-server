@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 to HTML</title>
+</head>
+<body>
+
+<div id="content"></div>
+
+<script>
+    // Base64 string (example, it encodes "<p>Hello, World!</p>")
+    const base64String = 'PHA+SGVsbG8sIFdvcmxkITwvcD4=';
+
+    // Decode the base64 string
+    const decodedString = atob(base64String);
+
+    // Create a new HTML element and set its content
+    const contentElement = document.getElementById('content');
+    contentElement.innerHTML = decodedString;
+console.log('decodedString'+decodedString);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Using zlib.js</title>
+    <!-- Include zlib.js from cdnjs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zlib.js/0.3.0/zlib.min.js"></script>
+</head>
+<body>
+    <script>
+        // Example base64 encoded string (compressed data)
+        var base64EncodedString = 'eJzLSM3JyVcozy/KSQEAGAUA0A==';
+
+        // Step 1: Decode the base64 string to obtain compressed data
+        var compressedData = atob(base64EncodedString);
+        var zlib = window.zlib; // Assuming zlib.js library is included
+console.log(zlib);
+
+        // Step 2: Convert to Uint8Array
+        var compressedUint8Array = new Uint8Array(compressedData.length);
+        for (var i = 0; i < compressedData.length; i++) {
+            compressedUint8Array[i] = compressedData.charCodeAt(i);
+        }
+
+        // Step 3: Decompress using zlib.js
+		if (typeof zlib !== 'undefined' && zlib.inflate) {
+        zlib.inflate(compressedUint8Array, function(err, decompressedBuffer) {
+            if (!err) {
+                // Successfully decompressed, convert to string
+                var decompressedString = String.fromCharCode.apply(null, new Uint16Array(decompressedBuffer));
+                console.log('Decompressed string:', decompressedString);
+            } else {
+                console.error('Decompression error:', err);
+            }
+        });
+		} else {
+    console.error('zlib or inflate method is not available.');
+}
+    </script>
+</body>
+</html>

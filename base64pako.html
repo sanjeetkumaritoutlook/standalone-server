@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Decode and Decompress</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/1.0.10/pako.min.js"></script>
+</head>
+<body>
+    <script>
+        // The Base64 encoded string
+        //const base64String = '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';
+const base64String = 'PHA+SGVsbG8sIFdvcmxkITwvcD4=';
+        // Decode the Base64 string
+        const binaryString = atob(base64String);
+
+        // Convert the binary string to a byte array
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+
+        // Decompress the byte array using pako
+        const decompressedData = pako.ungzip(bytes);
+
+        // Convert the decompressed byte array to a string
+        const decoder = new TextDecoder();
+        const result = decoder.decode(decompressedData);
+
+        // Log the result
+        console.log(result);
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decode and Decompress Base64 String</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/buffer/6.0.3/buffer.min.js"></script>
+</head>
+<body>
+    <h1>Decode and Decompress Base64 String</h1>
+
+    <div>
+        <h2>Base64 Encoded String</h2>
+        <textarea id="base64String" rows="10" cols="100">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</textarea>
+    </div>
+
+    <button id="decodeButton">Decode and Decompress</button>
+
+    <div>
+        <h2>Decoded and Decompressed Content</h2>
+        <pre id="output"></pre>
+    </div>
+
+    <script>
+        document.getElementById('decodeButton').addEventListener('click', function() {
+            const base64String = document.getElementById('base64String').value;
+            const buffer = Buffer.from(base64String, 'base64');
+            const decompressed = pako.ungzip(buffer);
+            const output = new TextDecoder().decode(decompressed);
+            document.getElementById('output').innerText = output;
+        });
+    </script>
+</body>
+</html>
