@@ -1,0 +1,35 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Change this to your default branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write 
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install http-server
+        run: npm install -g http-server
+
+      - name: Start HTTP Server (Optional for testing)
+        run: http-server -p 8080 &
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .  # Change if your files are inside "dist" or "public"
