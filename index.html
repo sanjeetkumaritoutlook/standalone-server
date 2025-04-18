@@ -6,6 +6,7 @@
     <title>Decode and Decompress Base64 String</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/buffer/6.0.3/buffer.min.js"></script>
+	 <script type="module" src="vue-web-component.js"></script>
 </head>
 <body>
     <h1>Decode and Decompress Base64 String</h1>
@@ -21,6 +22,7 @@
         <h2>Decoded and Decompressed Content</h2>
         <pre id="output"></pre>
     </div>
+    <vue-button label="Click Me"></vue-button>
 
     <script>
         document.getElementById('decodeButton').addEventListener('click', function() {
@@ -30,6 +32,10 @@
             const output = new TextDecoder().decode(decompressed);
             document.getElementById('output').innerText = output;
         });
+		
+		 document.querySelector('vue-button').addEventListener('clicked', () => {
+        console.log('Button was clicked!');
+      })
     </script>
 </body>
 </html>
