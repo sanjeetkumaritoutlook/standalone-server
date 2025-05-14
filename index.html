@@ -7,6 +7,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/buffer/6.0.3/buffer.min.js"></script>
 	 <script type="module" src="vue-web-component.js"></script>
+	   <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+  </script>
 </head>
 <body>
     <h1>Decode and Decompress Base64 String</h1>
@@ -37,5 +41,12 @@
         console.log('Button was clicked!');
       })
     </script>
+	  <pre class="mermaid">
+    sequenceDiagram
+      participant User
+      participant App
+      User->>App: Login Request
+      App-->>User: Response
+  </pre>
 </body>
 </html>
